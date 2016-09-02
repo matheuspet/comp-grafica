@@ -1,1 +1,9 @@
 # comp-grafica
+
+O primeiro trabalho prático da disciplina de Computação Gráfica I, que deverá ser feito em dupla ou individualmente, consiste em desenvolver um projeto de rendering/animação e outro de análise, conforme segue.
+
+O projeto de rendering/animação deve ser feito usando o POV-Ray. O projeto deve gerar um filme com animação de câmera e de objeto de no mínimo 3 segundos. O requisito mínimo é que o filme contenha pelo menos UM objeto que se mova por 2 segundos e a câmera que deve se mover por pelo menos 1 segundo. Os alunos devem resolver o problema de geração dos arquivos a serem renderizados, evitando que seja feito manualmente. O filme deve ser disponibilizado num blog (ou similar) a ser avisado a professora, na entrega do projeto. Ainda, uma página explicando como o filme foi feito deverá ser disponibilizado no blog.
+
+O projeto de análise visa ler pelos 4 vídeos do Dataset disponível em (https://drive.google.com/drive/folders/0BwtI7QtKyhnCNEtNZnN3TDdJWGc). Os arquivos a serem usados são: Paths_D.txt e contém as posições de cada pessoa acompanhada no vídeo no formato (x,y,tempo). A coordenada (0,0) no mundo encontra-se no canto superior-esquerdo. Bem no início do arquivo Paths_D.txt, o dado entre [,] indica o número de pixels que equivale a um metro, quando da conversão de coordenadas de imagens para mundo.
+
+O requisito mínimo do projeto é que o protótipo desenvolvido encontre pelo menos TRÊS eventos no vídeo e seja testado em pelos menos 4 vídeos. Um evento é uma ação alto nível capaz de ser identificada como por exemplo aproximação, afastamento, Split, grupo e etc. O protótipo pode ser implementado em qualquer linguagem e deve possuir uma simples visualização. Um relatório contendo as análises resultantes de no mínimo 4 vídeos, imagens e explicação sobre os objetivos do protótipo deve ser incluídos no blog.
