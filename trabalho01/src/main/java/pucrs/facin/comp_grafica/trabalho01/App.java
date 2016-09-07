@@ -6,6 +6,9 @@ package pucrs.facin.comp_grafica.trabalho01;
  */
 public class App {
     public static void main( String[] args ) {
-        System.out.println( "Hello World!" );
+        Leitor.lerArquivo("src/test/resources/Paths_D.txt");
+        for(Vivente vivente : Leitor.getViventes()) {
+        	System.out.println(vivente);
+        }
     }
 }
