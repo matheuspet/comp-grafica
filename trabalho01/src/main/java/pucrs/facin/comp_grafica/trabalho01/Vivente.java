@@ -20,6 +20,10 @@ public class Vivente {
 		movimentos.put(tempo, new Point(x, y));
 	}
 	
+	public SortedMap<Integer,Point> getMovimentos() {
+		return movimentos;
+	}
+	
 	public String toString(){
 		StringBuffer buffer = new StringBuffer();
 		
