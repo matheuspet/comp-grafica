@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Leitor {
-	private static List<Vivente> viventes = new ArrayList<Vivente>();
+	private static List<Vivente> viventes;
 	
-	public static void lerArquivo(String path){
+	public static void lerArquivo(String path) {
 		try {
+			viventes = new ArrayList<Vivente>();
 			FileReader arquivo = new FileReader(path);
 			BufferedReader leitor = new BufferedReader(arquivo);
 			
