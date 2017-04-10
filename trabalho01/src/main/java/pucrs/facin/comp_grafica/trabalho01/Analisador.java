@@ -8,8 +8,14 @@ import java.util.Map.Entry;
 public class Analisador {
 	private static List<List<List<Boolean>>> matriz;
 
+	private static final String MENSAGEM_GRUPO = " Grupo de %s viventes entre momentos %s e %s";
+	
 	private static int qtdMinimaParaGrupo;
 	private static int distanciaMinimaParaGrupo;
+
+	public static void detectarVelocidades() {
+		
+	}
 	
 	public static void detectarGrupo(Iterable<Vivente> amostra, int grupo, int distancia, int tempoMinimoParaGrupo) {
 		qtdMinimaParaGrupo = grupo;
@@ -21,7 +27,9 @@ public class Analisador {
 			if(hasGroup(viventes)) groupKeeping++;
 			else {
 				if(groupKeeping >= tempoMinimoParaGrupo) {
-					System.out.println(" Grupo entre momentos " + (momento - groupKeeping) + " e " + momento);
+					int momentoInicial = momento - groupKeeping; 
+					int momentoFinal = momento;
+					System.out.println(String.format(MENSAGEM_GRUPO, viventes.size(), momentoInicial, momentoFinal));
 				}
 				groupKeeping = 0;
 			}

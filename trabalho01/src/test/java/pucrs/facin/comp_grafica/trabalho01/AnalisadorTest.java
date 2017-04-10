@@ -3,11 +3,15 @@ package pucrs.facin.comp_grafica.trabalho01;
 import org.junit.After;
 import org.junit.Test;
 
+/**
+ * TODO 
+ * Definir grupos em diistancia intima e social. Apresentar o estudo malandro, mostrar as conclusões e fechou.
+ */
 public class AnalisadorTest {
 	
-	private static int qtdMinimaParaGrupo = 2;
-	private static int distanciaMinimaParaGrupo = 80;
-	private static int tempoMinimoParaGrupo = 10;
+	private static int qtdMinimaParaGrupo;
+	private static int distanciaMinimaParaGrupo;
+	private static int tempoMinimoParaGrupo;
 	
 	@After
 	public void analisar() {
