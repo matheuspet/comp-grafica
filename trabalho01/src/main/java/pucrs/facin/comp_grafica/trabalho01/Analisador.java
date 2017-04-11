@@ -1,21 +1,58 @@
 package pucrs.facin.comp_grafica.trabalho01;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 public class Analisador {
-	private static List<List<List<Boolean>>> matriz;
-
 	private static final String MENSAGEM_GRUPO = " Grupo de %s viventes entre momentos %s e %s";
+	private static String description;
 	
 	private static int qtdMinimaParaGrupo;
 	private static int distanciaMinimaParaGrupo;
 
+	private static int[][] matriz;
+	private static Random r = new Random();	
+
+    private static BufferedImage bufferedImage;
+    
 	public static void detectarVelocidades() {
-		
+		// TODO Analisar velocidade dos viventes
 	}
+
+	public static void desenharTrajetorias() {
+		try {	        
+		    File outputfile = new File("imagens/result-" + description + ".png");
+		    ImageIO.write(bufferedImage, "png", outputfile);
+		} catch (IOException ex) {
+		    System.out.println(ex);
+		}
+	}
+	
+	public static BufferedImage pintar(int[][] umaMatriz) {
+		int largura = umaMatriz.length;
+		int altura = umaMatriz[0].length;
+		
+		BufferedImage image = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
+
+		for (int h = 0; h < largura; h++) {
+			for (int w = 0; w < altura; w++) {
+				if(umaMatriz[h][w] == 0) umaMatriz[h][w] = 0XEEEEEE;
+				image.setRGB(h, w, umaMatriz[h][w]);
+			}
+		}
+
+		return image;
+	} 
 	
 	public static void detectarGrupo(Iterable<Vivente> amostra, int grupo, int distancia, int tempoMinimoParaGrupo) {
 		qtdMinimaParaGrupo = grupo;
@@ -29,6 +66,20 @@ public class Analisador {
 				if(groupKeeping >= tempoMinimoParaGrupo) {
 					int momentoInicial = momento - groupKeeping; 
 					int momentoFinal = momento;
+					
+				    Graphics2D graph = bufferedImage.createGraphics();
+			        graph.setColor(Color.RED);
+				    int[] xPoints = new int[viventes.size()];
+				    int[] yPoints = new int[viventes.size()];
+				    int c = 0;
+				    for(Point umCara : viventes) {
+				    	xPoints[c] = (int) umCara.getX();
+						yPoints[c] = (int) umCara.getY();
+						c++;
+				    }
+			        graph.drawPolygon(xPoints, yPoints, viventes.size());
+			        graph.dispose();
+					
 					System.out.println(String.format(MENSAGEM_GRUPO, viventes.size(), momentoInicial, momentoFinal));
 				}
 				groupKeeping = 0;
@@ -65,30 +116,31 @@ public class Analisador {
 		return viventes;
 	}
 
-	@Deprecated
-	public static void toMatrix(Iterable<Vivente> amostra) {
-		initMatrix();
+	public static void init(String desc, Iterable<Vivente> amostra) {
+		description = desc;
+		
+		int maiorX = Integer.MIN_VALUE;
+		int maiorY = Integer.MIN_VALUE;
 
 		for(Vivente vivente : amostra) { 
 			for(Entry<Integer,Point> tupla : vivente.getMovimentos().entrySet()) {
-				int instante = tupla.getKey();
-				int x = tupla.getValue().x;
-				int y = tupla.getValue().y;
-				
+				if(tupla.getValue().x > maiorX) maiorX = tupla.getValue().x;
+				if(tupla.getValue().y > maiorY) maiorY = tupla.getValue().y;
 			}
 		}
+
+		matriz = new int[maiorX + 1][maiorY + 1];
+		
+		for(Vivente vivente : amostra) { 
+			int colorCode = r.nextInt(0xCCCCCC);
+			for(Entry<Integer,Point> tupla : vivente.getMovimentos().entrySet()) {
+				int x = (int) tupla.getValue().getX();
+				int y = (int) tupla.getValue().getY();
+				matriz[x][y] = colorCode;
+			}
+		}
+		
+		bufferedImage = pintar(matriz);
     }
 
-	@Deprecated
-	private static void initMatrix() {
-		matriz = new ArrayList<List<List<Boolean>>>();
-		
-		for(int col = 0; col < 1020; col++) {
-			matriz.add(col, new ArrayList<List<Boolean>>());	
-			for(int lin = 0; lin < 1020; lin++) {
-				matriz.get(col).add(lin, new ArrayList<Boolean>());
-			}
-		}
-	}
-	
 }
