@@ -2,10 +2,6 @@ package pucrs.facin.comp_grafica.trabalho01;
 
 import org.junit.Test;
 
-/**
- * TODO 
- * Definir grupos em distancia intima e social. Apresentar o estudo malandro, mostrar as conclusões e fechou.
- */
 public class AnalisadorTest {
 	
 	private static int qtdMinimaParaGrupo;
@@ -16,7 +12,7 @@ public class AnalisadorTest {
     public void testFacin() {
 		System.out.println("Facin: ");
 		
-		qtdMinimaParaGrupo = 2;
+		qtdMinimaParaGrupo = 3;
 		distanciaMinimaParaGrupo = 70;
 		tempoMinimoParaGrupo = 5;
 		
@@ -31,8 +27,8 @@ public class AnalisadorTest {
     public void testJapan() {
 		System.out.println("Japão: ");
 		
-		qtdMinimaParaGrupo = 3;
-		distanciaMinimaParaGrupo = 60;
+		qtdMinimaParaGrupo = 10;
+		distanciaMinimaParaGrupo = 100;
 		tempoMinimoParaGrupo = 90;
 		
 		Leitor.lerArquivo("src/test/resources/Paths_Japan.txt");
@@ -47,13 +43,13 @@ public class AnalisadorTest {
     public void testFrance() {
 		System.out.println("France: ");
 		
-		qtdMinimaParaGrupo = 2;
-		distanciaMinimaParaGrupo = 20000;
+		qtdMinimaParaGrupo = 1;
+		distanciaMinimaParaGrupo = 30;
 		tempoMinimoParaGrupo = 1;
 		
 		Leitor.lerArquivo("src/test/resources/Paths_France.txt");
 		
-        Analisador.init("franca", Leitor.getViventes());
+        Analisador.init("france", Leitor.getViventes());
         Analisador.detectarGrupo(Leitor.getViventes(), qtdMinimaParaGrupo, distanciaMinimaParaGrupo, tempoMinimoParaGrupo);
 		Analisador.desenharTrajetorias();
     }
@@ -62,9 +58,9 @@ public class AnalisadorTest {
     public void testPortugal() {
 		System.out.println("Portugal: ");
 		
-		qtdMinimaParaGrupo = 2;
-		distanciaMinimaParaGrupo = 180;
-		tempoMinimoParaGrupo = 5;
+		qtdMinimaParaGrupo = 3;
+		distanciaMinimaParaGrupo = 100;
+		tempoMinimoParaGrupo = 3;
 		
 		Leitor.lerArquivo("src/test/resources/Paths_Portugal.txt");
         
@@ -77,7 +73,7 @@ public class AnalisadorTest {
     public void testArabes() {
 		System.out.println("Arabes: ");
 		
-		qtdMinimaParaGrupo = 2;
+		qtdMinimaParaGrupo = 3;
 		distanciaMinimaParaGrupo = 100;
 		tempoMinimoParaGrupo = 5;
 		
@@ -91,7 +87,7 @@ public class AnalisadorTest {
     public void testChina() {
 		System.out.println("China: ");
 		
-		qtdMinimaParaGrupo = 2;
+		qtdMinimaParaGrupo = 3;
 		distanciaMinimaParaGrupo = 100;
 		tempoMinimoParaGrupo = 5;
 		
@@ -106,8 +102,8 @@ public class AnalisadorTest {
     public void testEngland() {
 		System.out.println("England: ");
 		
-		qtdMinimaParaGrupo = 2;
-		distanciaMinimaParaGrupo = 100;
+		qtdMinimaParaGrupo = 3;
+		distanciaMinimaParaGrupo = 140;
 		tempoMinimoParaGrupo = 5;
 		
 		Leitor.lerArquivo("src/test/resources/Paths_England.txt");
@@ -121,7 +117,7 @@ public class AnalisadorTest {
     public void testTurkey() {
 		System.out.println("Turkey: ");
 		
-		qtdMinimaParaGrupo = 2;
+		qtdMinimaParaGrupo = 3;
 		distanciaMinimaParaGrupo = 100;
 		tempoMinimoParaGrupo = 5;
 		
@@ -136,9 +132,9 @@ public class AnalisadorTest {
     public void testGermany() {
 		System.out.println("Germany: ");
 		
-		qtdMinimaParaGrupo = 2;
-		distanciaMinimaParaGrupo = 800;
-		tempoMinimoParaGrupo = 4;
+		qtdMinimaParaGrupo = 3;
+		distanciaMinimaParaGrupo = 1000;
+		tempoMinimoParaGrupo = 2;
 		
 		Leitor.lerArquivo("src/test/resources/Paths_Germany.txt");
         

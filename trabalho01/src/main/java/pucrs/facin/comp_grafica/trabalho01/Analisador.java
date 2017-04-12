@@ -31,7 +31,7 @@ public class Analisador {
 
 	public static void desenharTrajetorias() {
 		try {	        
-		    File outputfile = new File("imagens/result-" + description + ".png");
+		    File outputfile = new File("imagens/" + description + "-result.png");
 		    ImageIO.write(bufferedImage, "png", outputfile);
 		} catch (IOException ex) {
 		    System.out.println(ex);
@@ -59,48 +59,57 @@ public class Analisador {
 		distanciaMinimaParaGrupo = distancia;
 		
 		int groupKeeping = 0;
-		for(int momento = 0; momento < 350; momento++) {
+		for(int momento = 0; momento <= 350; momento++) {
 			List<Point> viventes = getViventesAtMoment(momento, amostra);
-			if(hasGroup(viventes)) groupKeeping++;
+			if(hasGroup(viventes) && momento != 350) groupKeeping++;
 			else {
 				if(groupKeeping >= tempoMinimoParaGrupo) {
 					int momentoInicial = momento - groupKeeping; 
 					int momentoFinal = momento;
-					
+
 				    Graphics2D graph = bufferedImage.createGraphics();
 			        graph.setColor(Color.RED);
-				    int[] xPoints = new int[viventes.size()];
-				    int[] yPoints = new int[viventes.size()];
+				    int[] xPoints = new int[membrosDoGrupo.size()];
+				    int[] yPoints = new int[membrosDoGrupo.size()];
 				    int c = 0;
-				    for(Point umCara : viventes) {
+				    for(Point umCara : membrosDoGrupo) {//System.out.println(umCara);
 				    	xPoints[c] = (int) umCara.getX();
 						yPoints[c] = (int) umCara.getY();
 						c++;
 				    }
-			        graph.drawPolygon(xPoints, yPoints, viventes.size());
+			        graph.drawPolygon(xPoints, yPoints, membrosDoGrupo.size());
 			        graph.dispose();
 					
-					System.out.println(String.format(MENSAGEM_GRUPO, viventes.size(), momentoInicial, momentoFinal));
+					System.out.println(String.format(MENSAGEM_GRUPO, membrosDoGrupo.size(), momentoInicial, momentoFinal));
 				}
 				groupKeeping = 0;
 			}
 		}
 	}
 
+	private static List<Point> membrosDoGrupo = new ArrayList<Point>();
 	private static boolean hasGroup(List<Point> viventes) {
 		int quorum = 0;
+		boolean awnser = false;
+		List<Point> membros = new ArrayList<Point>();
 		
 		for(int i = 0; i < viventes.size(); i++) { 			
 			for(int k = i + 1; k < viventes.size(); k++) { 
 				Point vivente = viventes.get(i);
 				Point outroVivente = viventes.get(k);
-				int distancia = (int) vivente.distance(outroVivente);
-				
-				if(distancia < distanciaMinimaParaGrupo) quorum++;
-				if(quorum > qtdMinimaParaGrupo) return true;
+				int distancia = (int) vivente.distance(outroVivente); 
+				if(distancia < distanciaMinimaParaGrupo) {
+					quorum++;
+					membros.add(vivente);
+					if(quorum >= qtdMinimaParaGrupo) { 
+						awnser = true;
+					}
+				}
 			}
 		}
-		return false;
+		
+		if(awnser) { membrosDoGrupo = membros; }
+		return awnser;
 	}
 
 	private static List<Point> getViventesAtMoment(int momento, Iterable<Vivente> amostra) {
